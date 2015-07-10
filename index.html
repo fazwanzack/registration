@@ -2,6 +2,7 @@
 
 <html>
 <head>
+<script src="cordova.js"></script>
 <style>
 	body
 	{
@@ -49,9 +50,12 @@
 		}
 	}
 </style>
-<script src="cordova.js"></script>
 <script>
-window.addEventListener("load",function()
+function pageLoaded()
+{
+	document.addEventListener("deviceready",phoneReady,false);
+}
+function phoneReady()
 {
 	var inputName = document.getElementById("name");
 	var inputEmail = document.getElementById("email");
@@ -108,11 +112,12 @@ window.addEventListener("load",function()
 	{		
 		btnReg.disabled = true;
 	}
-});
+}
 
 function initCamera()
 {
-	navigator.camera.getPicture(onSuccess,onFail,{quality: 80,
+	navigator.camera.getPicture(onSuccess,onFail,
+	{quality: 80,
     destinationType: Camera.DestinationType.DATA_URL,
 	sourceType : Camera.PictureSourceType.CAMERA,
 	allowEdit : true,
@@ -123,26 +128,24 @@ function initCamera()
 }
 function initCamera2()
 {
-	navigator.camera.getPicture(onSuccess, onFail, { quality: 80,
-    destinationType: Camera.DestinationType.FILE_URI 
+	navigator.camera.getPicture(onSuccess, onFail, 
+	{ 
 	sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
-	allowEdit : true,
-	encodingType: Camera.EncodingType.JPEG,
 	targetWidth: 100,
 	targetHeight: 150
 	});
 }
 function onSuccess(imageURL)
 {
-	document.getElementById("pic").src = "data:image/jpeg;base64," + imageURL;
+	document.getElementById("pic").src = imageURL;
 }
 function onFail(message)
 {
-	//message = reason for failure
+	alert("Camera Fail");
 }
 </script>
 </head>
-<body>
+<body onload="pageLoaded()">
 	<h2 id="title">Registration Form</h2>
 	<br/>
 	<div id="pic" style="width:100px;height:150px;"><img src="" id="pic" height="150px" width:""100px" /></div>
