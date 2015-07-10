@@ -15,7 +15,6 @@
         <access origin="*" />
 		
 		<icon src="images/images.jpg" />
-		<gap:splash src="images/convert.png"/>
 		
 		<feature name="http://api.phonegap.com/1.0/file" />
 		
