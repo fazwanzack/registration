@@ -4,11 +4,11 @@
     xmlns:android   = "http://schemas.android.com/apk/res/android"
     id              = "com.lumberg.greeeaaat"
     version         = "1.0.0">
-        <name>The New Test App</name>
+        <name>Mini Reg App</name>
         <description>
-        Learning Phonegap can be fun
+        Simple registration form
         </description>
-        <author email="fazwanray@gmail.com" href="http://phonegap.com">
+        <author email="fazwan_othman@hotmail.com" href="http://phonegap.com">
         Fazwan Zack
         </author>
         <content src="index.html" />
