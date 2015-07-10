@@ -103,18 +103,34 @@ window.addEventListener("load",function()
 	{		
 		alert("Your registration is done!");
 	}
+	
+	btnReset.onclick = function()
+	{		
+		btnReg.disabled = true;
+	}
 });
 
 function initCamera()
 {
-	navigator.camera.getPicture(onSuccess,onFail,quality: 80,
-    destinationType: Camera.DestinationType.DATA_URL
+	navigator.camera.getPicture(onSuccess,onFail,{quality: 80,
+    destinationType: Camera.DestinationType.DATA_URL,
+	sourceType : Camera.PictureSourceType.CAMERA,
+	allowEdit : true,
+	encodingType: Camera.EncodingType.JPEG,
+	targetWidth: 100,
+	targetHeight: 150
 	});
 }
 function initCamera2()
 {
 	navigator.camera.getPicture(onSuccess, onFail, { quality: 80,
-    destinationType: Camera.DestinationType.FILE_URI });
+    destinationType: Camera.DestinationType.FILE_URI 
+	sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+	allowEdit : true,
+	encodingType: Camera.EncodingType.JPEG,
+	targetWidth: 100,
+	targetHeight: 150
+	});
 }
 function onSuccess(imageURL)
 {
@@ -132,7 +148,7 @@ function onFail(message)
 	<div id="pic" style="width:100px;height:150px;"><img src="" id="pic" height="150px" width:""100px" /></div>
 	<br/><div id="buttonPic"> 
 	<center><input type="button" value="Take Pic" onclick="initCamera()" />
-	<input type="button" value="Browse Gallery" onclick="initCamera2()" /></center>
+	<input type="button" value="Browse Pic" onclick="initCamera2()" /></center>
 	</div><br/>
 	<div id="form"><form><table>
 	 <tr><td>Name: </td><td><input type="text" id="name"  /></td></tr> 
