@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<style>
+	body
+	{
+		background:gray;
+		
+	}
+	@font-face
+	{
+		font-family:afont;
+		src:url("Kaushan.otf");
+	}
+	#title
+	{
+		color:white;
+		font-family:afont;
+	}
+	#pic
+	{
+		border: 1.5px solid;
+	}
+	@media screen  and (orientation:portrait)
+	{
+		#title
+		{
+			text-align:center;
+		}
+		#pic
+		{
+			margin:auto;
+		}
+	}
+	@media screen  and (orientation:landscape)
+	{	
+		#form
+		{
+			transform:translate(12.5em,-10.5em);
+		}
+		#register
+		{
+			transform:translate(40em,-17.5em);
+		}
+		#reset
+		{
+			transform:translate(35em,-15.5em);
+		}
+	}
+	</style>
+<script src="cordova.js"></script>
+<script>
+function pageLoaded()
+{
+	document.addEventListener("deviceready",load);
+}
+function load()
+{
+	var inputName = document.getElementById("name");
+	var inputEmail = document.getElementById("email");
+	var btnReg = document.getElementById("register");
+	
+	inputEmail.onkeyup = function()
+	{
+		var numRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		
+		if(inputEmail.value != "")
+		{
+			if(numRegex.test(inputEmail.value))
+			{
+				btnCalc.disabled = false;
+			}
+			else
+			{
+				btnCalc.disabled = true;
+			}
+		}
+		else
+		{
+			btnCalc.disabled = true;
+		}		
+	}
+	
+	btnReg.onclick = function()
+	{		
+		alert("Your registration is done!");
+	}
+	
+	btnReset.onclick = function()
+	{		
+		alert("Your registration is done!");
+	}
+}
+function initCamera()
+{
+	var options = {
+		quality:80,
+		destinationType:DATA_URL, //FILE_URI,NATIVE_URI
+		allowEdit:true,
+		encodingType:JPEG,
+		PictureSourceType:CAMERA //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
+	}
+	navigator.camera.getPicture(onSuccess,onFail,options);
+}
+function initCamera2()
+{
+	var options = {
+		quality:80,
+		destinationType:DATA_URL, //FILE_URI,NATIVE_URI
+		allowEdit:true,
+		encodingType:JPEG,
+		PictureSourceType:PHOTOLIBRARY //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
+	}
+	navigator.camera.getPicture(onSuccess,onFail,options);
+}
+function onSuccess(imageURL)
+{
+	document.getElementById("pic").src = "data:image/jpeg;base64," + imageURL;
+}
+function onFail(message)
+{
+	//message = reason for failure
+}
+</script>
+</head>
+<body onload="PageLoaded()">
+	<h2 id="title">Registration Form</h2>
+	<br/>
+	<div id="pic" style="width:100px;height:150px;"></div>
+	<br/><div id="buttonPic"> 
+	<center><input type="button" value="Take Pic" onclick="initCamera()" />
+	<input type="button" value="Browse Gallery" onclick="initCamera2()" /></center>
+	</div><br/>
+	<div id="form"><form><table>
+	 <tr><td>Name: </td><td><input type="text" id="name" required=required /></td></tr> 
+	 <tr><td>Email: </td><td><input type="text" id="email" required=required onkeyup="function()"/></td></tr> 
+	 </table></form></div>
+	 <br/>
+	<input id="register" type="button" value="Register" onclick = "register()"/>
+	<input id="reset" type="reset" value="Reset" onclick = "resetA()""/>
+</body>
+</html>
