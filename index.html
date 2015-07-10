@@ -48,37 +48,33 @@
 			transform:translate(35em,-15.5em);
 		}
 	}
-	</style>
+</style>
 <script src="cordova.js"></script>
 <script>
-function pageLoaded()
-{
-	document.addEventListener("deviceready",load);
-}
-function load()
+window.addEventListener("load",function()
 {
 	var inputName = document.getElementById("name");
 	var inputEmail = document.getElementById("email");
-	var btnReg = document.getElementById("register");
+	var btnReg = document.getElementById("reg");
 	
 	inputEmail.onkeyup = function()
 	{
 		var numRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 		
-		if(inputEmail.value != "")
+		if((inputEmail.value != "") && (inputName.value != ""))
 		{
 			if(numRegex.test(inputEmail.value))
 			{
-				btnCalc.disabled = false;
+				btnReg.disabled = false;
 			}
 			else
 			{
-				btnCalc.disabled = true;
+				btnReg.disabled = true;
 			}
 		}
 		else
 		{
-			btnCalc.disabled = true;
+			btnReg.disabled = true;
 		}		
 	}
 	
@@ -89,29 +85,30 @@ function load()
 	
 	btnReset.onclick = function()
 	{		
-		alert("Your registration is done!");
+		
 	}
-}
+});
+
 function initCamera()
 {
 	var options = {
 		quality:80,
-		destinationType:DATA_URL, //FILE_URI,NATIVE_URI
+		DestinationType:DATA_URL, //FILE_URI,NATIVE_URI
 		allowEdit:true,
 		encodingType:JPEG,
-		PictureSourceType:CAMERA //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
-	}
+		pictureSourceType:CAMERA //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
+	};
 	navigator.camera.getPicture(onSuccess,onFail,options);
 }
 function initCamera2()
 {
 	var options = {
 		quality:80,
-		destinationType:DATA_URL, //FILE_URI,NATIVE_URI
+		DestinationType:DATA_URL, //FILE_URI,NATIVE_URI
 		allowEdit:true,
 		encodingType:JPEG,
-		PictureSourceType:PHOTOLIBRARY //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
-	}
+		pictureSourceType:PHOTOLIBRARY //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
+	};
 	navigator.camera.getPicture(onSuccess,onFail,options);
 }
 function onSuccess(imageURL)
@@ -124,20 +121,20 @@ function onFail(message)
 }
 </script>
 </head>
-<body onload="PageLoaded()">
+<body>
 	<h2 id="title">Registration Form</h2>
 	<br/>
-	<div id="pic" style="width:100px;height:150px;"></div>
+	<div id="pic" style="width:100px;height:150px;"><img src="" id="pic" height="150px" width:""100px" /></div>
 	<br/><div id="buttonPic"> 
 	<center><input type="button" value="Take Pic" onclick="initCamera()" />
 	<input type="button" value="Browse Gallery" onclick="initCamera2()" /></center>
 	</div><br/>
 	<div id="form"><form><table>
-	 <tr><td>Name: </td><td><input type="text" id="name" required=required /></td></tr> 
-	 <tr><td>Email: </td><td><input type="text" id="email" required=required onkeyup="function()"/></td></tr> 
-	 </table></form></div>
+	 <tr><td>Name: </td><td><input type="text" id="name"  /></td></tr> 
+	 <tr><td>Email: </td><td><input type="text" id="email" /></td></tr> 
+	 </table></div>
 	 <br/>
-	<input id="register" type="button" value="Register" onclick = "register()"/>
-	<input id="reset" type="reset" value="Reset" onclick = "resetA()""/>
+	<input type="button" id="reg" value="Register" disabled="disabled" />
+	<input type="reset" id="reset" value="Reset" /></form>
 </body>
 </html>
