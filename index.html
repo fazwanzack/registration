@@ -62,6 +62,7 @@ function phoneReady()
 	btnReset.onclick = function()
 	{		
 		btnReg.disabled = true;
+		document.getElementById("pic").src = "";
 	}
 }
 
@@ -84,6 +85,7 @@ function initCamera2()
 	var opt = 
 	{ 
 	sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+	allowEdit : true,
 	targetWidth: 100,
 	targetHeight: 150
 	};
