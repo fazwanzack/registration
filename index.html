@@ -57,13 +57,34 @@ window.addEventListener("load",function()
 	var inputEmail = document.getElementById("email");
 	var btnReg = document.getElementById("reg");
 	
+	inputName.onkeyup = function()
+	{
+		var nameRegex = /^[a-zA-Z ]{2,50}$/;
+		
+		if(inputName.value != "")
+		{
+			if(nameRegex.test(inputName.value) && (inputEmail.value != ""))
+			{
+				btnReg.disabled = false;
+			}
+			else
+			{
+				btnReg.disabled = true;
+			}
+		}
+		else
+		{
+			btnReg.disabled = true;
+		}		
+	}
+	
 	inputEmail.onkeyup = function()
 	{
 		var numRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 		
-		if((inputEmail.value != "") && (inputName.value != ""))
+		if(inputEmail.value != "")
 		{
-			if(numRegex.test(inputEmail.value))
+			if(numRegex.test(inputEmail.value) && (inputName.value != ""))
 			{
 				btnReg.disabled = false;
 			}
@@ -82,34 +103,18 @@ window.addEventListener("load",function()
 	{		
 		alert("Your registration is done!");
 	}
-	
-	btnReset.onclick = function()
-	{		
-		
-	}
 });
 
 function initCamera()
 {
-	var options = {
-		quality:80,
-		DestinationType:DATA_URL, //FILE_URI,NATIVE_URI
-		allowEdit:true,
-		encodingType:JPEG,
-		pictureSourceType:CAMERA //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
-	};
-	navigator.camera.getPicture(onSuccess,onFail,options);
+	navigator.camera.getPicture(onSuccess,onFail,quality: 80,
+    destinationType: Camera.DestinationType.DATA_URL
+	});
 }
 function initCamera2()
 {
-	var options = {
-		quality:80,
-		DestinationType:DATA_URL, //FILE_URI,NATIVE_URI
-		allowEdit:true,
-		encodingType:JPEG,
-		pictureSourceType:PHOTOLIBRARY //PHOTOLIBRARY, CAMERA, SAVEDPHOTOALBUM
-	};
-	navigator.camera.getPicture(onSuccess,onFail,options);
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 80,
+    destinationType: Camera.DestinationType.FILE_URI });
 }
 function onSuccess(imageURL)
 {
